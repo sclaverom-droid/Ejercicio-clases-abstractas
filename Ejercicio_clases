@@ -1,0 +1,58 @@
+from abc import ABC, abstractmethod
+
+
+class Persona(ABC):
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    @abstractmethod
+    def presentarse(self):
+        """Devuelve un saludo."""
+
+    @abstractmethod
+    def actividad_diaria(self):
+        """Devuelve qué hace en el día a día."""
+
+    def cumplir_anios(self):
+        self.edad += 1
+        return f"¡Feliz cumpleaños! Ahora tengo {self.edad} años."
+
+
+class Alumno(Persona):
+    def __init__(self, nombre, edad, curso):
+        super().__init__(nombre, edad)
+        self.curso = curso
+
+    def presentarse(self):
+        return f"Hola, soy {self.nombre}, tengo {self.edad} años y estoy en {self.curso}."
+
+    def actividad_diaria(self):
+        return f"Voy a clase y estudio para {self.curso}."
+
+
+class Profesor(Persona):
+    def __init__(self, nombre, edad, asignatura):
+        super().__init__(nombre, edad)
+        self.asignatura = asignatura
+
+    def presentarse(self):
+        return f"Buenos días, soy {self.nombre}, tengo {self.edad} años y doy {self.asignatura}."
+
+    def actividad_diaria(self):
+        return f"Doy clases de {self.asignatura} y corrijo exámenes."
+
+
+alumno = Alumno("Lucía", 15, "4º ESO")
+profesor = Profesor("Carlos", 42, "Matemáticas")
+
+for persona in [alumno, profesor]:
+    print(persona.presentarse())
+    print(persona.actividad_diaria())
+    print(persona.cumplir_anios())
+    print()
+
+
+pepe = Persona("Pepe", 30)
+
+#Da un error TypeError porque Persona es una clase abstracta con métodos abstractos (presentarse y actividad_diaria) sin implementar, y Python no permite crear objetos directamente de una clase abstracta incompleta
